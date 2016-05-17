@@ -2,7 +2,7 @@ __author__ = 'sibirrer'
 
 import numpy as np
 
-import lenstronomy.DataAnalysis.Sextractor_wrapper.pysex as pysex
+import pyextract.pysex as pysex
 
 
 
