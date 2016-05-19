@@ -131,12 +131,12 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
     else: verbose = True
     _cleanup()
     if not type(image) == type(''):
-        import pyfits
+        # import pyfits
         im_name = '.pysex.fits'
         pyfits.writeto(im_name, image.transpose())
     else: im_name = image
     if not type(imageref) == type(''):
-        import pyfits
+        # import pyfits
         imref_name = '.pysex.ref.fits'
         pyfits.writeto(imref_name, imageref.transpose())
     else: imref_name = imageref
@@ -157,4 +157,3 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
     cat = _read_cat()
     _cleanup()
     return cat
-
