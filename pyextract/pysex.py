@@ -145,7 +145,7 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
     cmd = _get_cmd(im_name, imref_name, conf_args)
     res = os.system(cmd)
     if res:
-        print "Error during sextractor execution!"
+        print("Error during sextractor execution!")
         _cleanup()
         return
 
