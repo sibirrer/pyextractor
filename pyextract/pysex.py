@@ -33,12 +33,12 @@ def _check_files(conf_file, conf_args, verbose=True):
         conf_file = '.pysex.sex'
     if not conf_args.has_key('FILTER_NAME') or not os.path.isfile(conf_args['FILTER_NAME']):
         if verbose:
-            print 'No filter file found, using default filter'
+            print('No filter file found, using default filter')
         shutil.copyfile(default_conv, '.pysex.conv')
         conf_args['FILTER_NAME'] = '.pysex.conv'
     if not conf_args.has_key('STARNNW_NAME') or not os.path.isfile(conf_args['STARNNW_NAME']):
         if verbose:
-            print 'No NNW file found, using default NNW config'
+            print('No NNW file found, using default NNW config')
         shutil.copyfile(default_nnw, '.pysex.nnw')
         conf_args['STARNNW_NAME'] = '.pysex.nnw'
     return conf_file, conf_args
