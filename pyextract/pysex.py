@@ -143,7 +143,7 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
     conf_file, conf_args = _check_files(conf_file, conf_args, verbose)
     _setup(conf_file, params)
     cmd = _get_cmd(im_name, imref_name, conf_args)
-    print("cmd:" , cmd)
+    print("sextractor command:", cmd)
     res = os.system(cmd)
     if res:
         print("Error during sextractor execution!")
