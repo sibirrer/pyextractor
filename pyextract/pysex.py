@@ -29,27 +29,27 @@ default_nnw = os.path.join(dir_name,'default.nnw')
 def _check_files(conf_file, conf_args, verbose=True):
     dir_name = os.path.dirname(__file__)
     if conf_file is None:
-        shutil.copyfile(default_sex, '.pysex.sex')
-        conf_file = '.pysex.sex'
+        shutil.copyfile(default_sex, '.pysex.sex')  # changed .
+        conf_file = '.pysex.sex'  # changed .
     if not conf_args.has_key('FILTER_NAME') or not os.path.isfile(conf_args['FILTER_NAME']):
         if verbose:
             print('No filter file found, using default filter')
-        shutil.copyfile(default_conv, '.pysex.conv')
-        conf_args['FILTER_NAME'] = '.pysex.conv'
+        shutil.copyfile(default_conv, '.pysex.conv')  # changed .
+        conf_args['FILTER_NAME'] = '.pysex.conv'  # changed .
     if not conf_args.has_key('STARNNW_NAME') or not os.path.isfile(conf_args['STARNNW_NAME']):
         if verbose:
             print('No NNW file found, using default NNW config')
-        shutil.copyfile(default_nnw, '.pysex.nnw')
-        conf_args['STARNNW_NAME'] = '.pysex.nnw'
+        shutil.copyfile(default_nnw, '.pysex.nnw')  # changed .
+        conf_args['STARNNW_NAME'] = '.pysex.nnw'  # changed .
     return conf_file, conf_args
 
 def _setup(conf_file, params):
     try:
-        shutil.copy(conf_file, '.pysex.sex')
+        shutil.copy(conf_file, '.pysex.sex')  # changed .
     except:
         pass #already created in _check_files
 
-    f=open('.pysex.param', 'w')
+    f=open('.pysex.param', 'w') # changed .
     print>>f, '\n'.join(params)
     f.close()
 
@@ -60,13 +60,13 @@ def _setup_img(image, name):
 
 def _get_cmd(img, img_ref, conf_args):
     ref = img_ref if img_ref is not None else ''
-    cmd = ' '.join(['sex', ref, img, '-c .pysex.sex '])
+    cmd = ' '.join(['sex', ref, img, '-c .pysex.sex '])  # changed .
     args = [''.join(['-', key, ' ', str(conf_args[key])]) for key in conf_args]
     cmd += ' '.join(args)
     return cmd
 
 
-def _read_cat(path = '.pysex.cat'):
+def _read_cat(path = '.pysex.cat'):  # changed .
     cat = pyfits.open(path)
     return cat
 
@@ -124,8 +124,8 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
             return cat
 
     # Otherwise we run sex :
-    conf_args['CATALOG_NAME'] = '.pysex.cat'
-    conf_args['PARAMETERS_NAME'] = '.pysex.param'
+    conf_args['CATALOG_NAME'] = '.pysex.cat'  # changed .
+    conf_args['PARAMETERS_NAME'] = '.pysex.param'  # changed .
     if 'VERBOSE_TYPE' in conf_args and conf_args['VERBOSE_TYPE']=='QUIET':
         verbose = False
     else: verbose = True
@@ -143,6 +143,7 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
     conf_file, conf_args = _check_files(conf_file, conf_args, verbose)
     _setup(conf_file, params)
     cmd = _get_cmd(im_name, imref_name, conf_args)
+    print("cmd:" , cmd)
     res = os.system(cmd)
     if res:
         print("Error during sextractor execution!")
@@ -155,5 +156,5 @@ def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=
 
     # Returning the cat :
     cat = _read_cat()
-    _cleanup()
+    #_cleanup()
     return cat
