@@ -43,6 +43,7 @@ def _check_files(conf_file, conf_args, verbose=True):
         conf_args['STARNNW_NAME'] = '.pysex.nnw'  # changed .
     return conf_file, conf_args
 
+
 def _setup(conf_file, params):
     try:
         shutil.copy(conf_file, '.pysex.sex')  # changed .
@@ -60,7 +61,8 @@ def _setup_img(image, name):
 
 def _get_cmd(img, img_ref, conf_args):
     ref = img_ref if img_ref is not None else ''
-    cmd = ' '.join(['sex', ref, img, '-c .pysex.sex '])  # changed .
+    # cmd = ' '.join(['sex', ref, img, '-c .pysex.sex '])  # changed .
+    cmd = ' '.join(['sex', ref, '-c .pysex.sex '])  # changed .
     args = [''.join(['-', key, ' ', str(conf_args[key])]) for key in conf_args]
     cmd += ' '.join(args)
     return cmd
@@ -78,7 +80,7 @@ def _cleanup():
     for f in files:
         os.remove(f)
 
-def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=True, rerun=False, catdir=None):
+def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=True, rerun=True, catdir=None):
     """
     Run sextractor on the given image with the given parameters.
 
