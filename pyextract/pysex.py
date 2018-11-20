@@ -26,17 +26,18 @@ default_sex = os.path.join(dir_name,'default.sex')
 default_conv = os.path.join(dir_name,'gauss_2.0_5x5.conv')
 default_nnw = os.path.join(dir_name,'default.nnw')
 
+
 def _check_files(conf_file, conf_args, verbose=True):
-    dir_name = os.path.dirname(__file__)
+    # dir_name = os.path.dirname(__file__)
     if conf_file is None:
         shutil.copyfile(default_sex, '.pysex.sex')  # changed .
         conf_file = '.pysex.sex'  # changed .
-    if not conf_args.has_key('FILTER_NAME') or not os.path.isfile(conf_args['FILTER_NAME']):
+    if not 'FILTER_NAME' in conf_args or not os.path.isfile(conf_args['FILTER_NAME']):
         if verbose:
             print('No filter file found, using default filter')
         shutil.copyfile(default_conv, '.pysex.conv')  # changed .
         conf_args['FILTER_NAME'] = '.pysex.conv'  # changed .
-    if not conf_args.has_key('STARNNW_NAME') or not os.path.isfile(conf_args['STARNNW_NAME']):
+    if not 'STARNNW_NAME' in conf_args or not os.path.isfile(conf_args['STARNNW_NAME']):
         if verbose:
             print('No NNW file found, using default NNW config')
         shutil.copyfile(default_nnw, '.pysex.nnw')  # changed .
@@ -51,8 +52,10 @@ def _setup(conf_file, params):
         pass #already created in _check_files
 
     f=open('.pysex.param', 'w') # changed .
-    print>>f, '\n'.join(params)
+    print('\n'.join(params), file=f)
+    #print>>f, '\n'.join(params)
     f.close()
+
 
 def _setup_img(image, name):
     if not type(image) == type(''):
@@ -72,6 +75,7 @@ def _read_cat(path = '.pysex.cat'):  # changed .
     cat = pyfits.open(path)
     return cat
 
+
 def _cleanup():
     """
     delets all files with .pysex.
@@ -79,6 +83,7 @@ def _cleanup():
     files = [f for f in os.listdir('.') if '.pysex.' in f]
     for f in files:
         os.remove(f)
+
 
 def run(image='', imageref='', params=[], conf_file=None, conf_args={}, keepcat=True, rerun=True, catdir=None):
     """
