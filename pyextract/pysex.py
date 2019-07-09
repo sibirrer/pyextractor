@@ -17,7 +17,7 @@ Usage:
 	print cat['FLUX_APER']
 
 """
-
+from __future__ import print_function
 import os, shutil
 import astropy.io.fits as pyfits
 
